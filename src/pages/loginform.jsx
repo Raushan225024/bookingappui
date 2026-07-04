@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
 
   const getOtp = async () => {
@@ -18,6 +19,7 @@ function Login() {
       );
 
       alert(`Your OTP is: ${res.data.otp}`);
+      setOtpSent(true);
     } catch (error) {
       console.log(error);
     }
@@ -74,9 +76,15 @@ function Login() {
     />
 
     <button
-      onClick={getOtp}
-      className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 text-white font-semibold text-lg shadow-lg hover:scale-[1.02] active:scale-95 transition"
-    >
+     onClick={getOtp}
+     disabled={phone.length !== 10}
+     className={`w-full h-14 rounded-2xl text-white font-semibold text-lg shadow-lg transition
+      ${
+        phone.length === 10
+          ? "bg-gradient-to-r from-violet-600 to-purple-600 hover:scale-[1.02] active:scale-95"
+          : "bg-gray-400 cursor-not-allowed"
+        }`}
+      >
       Get OTP
     </button>
 
@@ -92,12 +100,19 @@ function Login() {
       placeholder="Enter OTP"
       value={otp}
       onChange={(e) => setOtp(e.target.value)}
+       disabled={!otpSent}
       className="w-full h-14 px-5 rounded-2xl border border-violet-200 bg-violet-50 outline-none focus:ring-2 focus:ring-violet-500 transition mb-5 text-gray-700 placeholder:text-gray-400"
     />
 
     <button
-      onClick={login}
-      className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 text-white font-semibold text-lg shadow-lg hover:scale-[1.02] active:scale-95 transition"
+       onClick={login}
+       disabled={!otpSent}
+       className={`w-full h-14 rounded-2xl text-white font-semibold text-lg shadow-lg transition
+       ${
+         otpSent
+          ? "bg-gradient-to-r from-violet-600 to-purple-600 hover:scale-[1.02] active:scale-95"
+          : "bg-gray-400 cursor-not-allowed"
+       }`}
     >
       Login
     </button>
