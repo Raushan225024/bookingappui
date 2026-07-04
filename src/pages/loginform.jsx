@@ -44,34 +44,71 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>Phone Login</h2>
+    <div className="min-h-screen bg-gradient-to-br from-violet-100 via-white to-purple-100 flex items-center justify-center px-5">
 
-      <input
-        type="text"
-        placeholder="Phone Number"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
+  <div className="w-full max-w-sm bg-white rounded-3xl shadow-2xl p-8">
 
-      <button onClick={getOtp}>
-        Get OTP
-      </button>
-
-      <br />
-      <br />
-
-      <input
-        type="text"
-        placeholder="Enter OTP"
-        value={otp}
-        onChange={(e) => setOtp(e.target.value)}
-      />
-
-      <button onClick={login}>
-        Login
-      </button>
+    {/* Logo */}
+    <div className="flex justify-center mb-6">
+      <div className="w-20 h-20 rounded-full bg-violet-100 flex items-center justify-center shadow-lg">
+        <span className="text-4xl">📱</span>
+      </div>
     </div>
+
+    {/* Heading */}
+    <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">
+      Phone Login
+    </h2>
+
+    <p className="text-center text-gray-500 text-sm mb-8">
+      Login with your phone number
+    </p>
+
+    {/* Phone Number */}
+    <input
+      type="text"
+      placeholder="Phone Number"
+      value={phone}
+      onChange={(e) => setPhone(e.target.value)}
+      className="w-full h-14 px-5 rounded-2xl border border-violet-200 bg-violet-50 outline-none focus:ring-2 focus:ring-violet-500 transition mb-5 text-gray-700 placeholder:text-gray-400"
+    />
+
+    <button
+      onClick={getOtp}
+      className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 text-white font-semibold text-lg shadow-lg hover:scale-[1.02] active:scale-95 transition"
+    >
+      Get OTP
+    </button>
+
+    <div className="flex items-center my-8">
+      <div className="flex-1 h-px bg-gray-300"></div>
+      <span className="mx-3 text-gray-400">or</span>
+      <div className="flex-1 h-px bg-gray-300"></div>
+    </div>
+
+    {/* OTP */}
+    <input
+      type="text"
+      placeholder="Enter OTP"
+      value={otp}
+      onChange={(e) => setOtp(e.target.value)}
+      className="w-full h-14 px-5 rounded-2xl border border-violet-200 bg-violet-50 outline-none focus:ring-2 focus:ring-violet-500 transition mb-5 text-gray-700 placeholder:text-gray-400"
+    />
+
+    <button
+      onClick={login}
+      className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 text-white font-semibold text-lg shadow-lg hover:scale-[1.02] active:scale-95 transition"
+    >
+      Login
+    </button>
+
+    <div className="mt-8 text-center text-gray-500 text-sm">
+      🔒 Your data is safe and secure
+    </div>
+
+  </div>
+
+</div>
   );
 }
 
