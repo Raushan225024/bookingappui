@@ -37,11 +37,14 @@ function Dashboard() {
         boxSizing: "border-box",
       }}
     >
-      <div style={{ marginBottom: "10px", flexShrink: 0 }}>
-        <button onClick={navigateToProfile} style={{ padding: "8px 12px", borderRadius: "8px" }}>
-          user
-        </button>
-      </div>
+     <div className="w-full h-10 bg-sky-100 shadow-md flex items-center justify-end px-6 mb-4">
+  <button
+  onClick={navigateToProfile}
+  className="flex items-center gap-1 bg-sky-500 hover:bg-sky-600 text-white text-xs font-medium px-2.5 py-1 rounded-full shadow transition duration-200"
+>
+  👤 User
+</button>
+</div>
 
       <div
         style={{

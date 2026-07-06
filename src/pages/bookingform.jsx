@@ -72,40 +72,33 @@ const token = localStorage.getItem("token");
 
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        gap: "10px",
-        alignItems: "stretch",
-        marginTop: "0px",
-        width: "100%",
-      }}
-    >
-      <input
-        type="password"
-        placeholder="Enter Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        maxLength={6}
-        style={{
-          padding: "10px",
-          fontSize: "16px",
-          width: "100%",
+    <div className="flex flex-col gap-3 rounded-2xl border border-sky-300/40 bg-gradient-to-br from-sky-100 to-blue-100 p-4 shadow-lg shadow-blue-200/50">
+      <div className="flex gap-2">
+        <div className="relative flex-1">
           
-        }}
-      />
+          <input
+            type="password"
+            placeholder="6-digit PIN as a locker password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            maxLength={6}
+            className="w-full rounded-xl border border-sky-300/60 bg-white/80 px-4 py-2 text-sm text-blue-900 placeholder:text-blue-300 outline-none transition focus:border-sky-400 focus:ring-2 focus:ring-sky-300/50"
+          />
+        </div>
 
-      <button
-        onClick={handleBooking}
-        style={{
-          padding: "10px 20px",
-          cursor: "pointer",
-          width: "100%",
-        }}
-      >
-        Booking
-      </button>
+        <button
+          onClick={handleBooking}
+          className="mt-auto flex-shrink-0 rounded-xl bg-gradient-to-r from-sky-400 to-blue-500 px-6 py-2 font-semibold text-white shadow-lg shadow-blue-400/40 transition hover:-translate-y-0.5 hover:shadow-blue-400/60 active:scale-[0.98]"
+        >
+          Book
+        </button>
+      </div>
+
+      <div className="rounded-xl border border-sky-300/50 bg-sky-50 px-4 py-1 text-xs text-blue-700">
+        {selectedLocker.length > 0
+          ? `✓ ${selectedLocker.length} locker${selectedLocker.length > 1 ? "s" : ""} ready to book`
+          : "Select lockers above to continue"}
+      </div>
     </div>
   );
 }

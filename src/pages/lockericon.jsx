@@ -18,7 +18,7 @@ function Locker({
   });
 
   const backgroundColor = isDisabled
-    ? "#fcf7f76b" // Red
+    ? "#689ff731" // Red
     : isSelected
     ? "#3b82f6" // Blue
     : "#22c55e"; // Green
