@@ -75,9 +75,11 @@ const token = localStorage.getItem("token");
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         gap: "10px",
-        alignItems: "center",
-        marginTop: "20px"
+        alignItems: "stretch",
+        marginTop: "0px",
+        width: "100%",
       }}
     >
       <input
@@ -88,7 +90,9 @@ const token = localStorage.getItem("token");
         maxLength={6}
         style={{
           padding: "10px",
-          fontSize: "16px"
+          fontSize: "16px",
+          width: "100%",
+          
         }}
       />
 
@@ -96,7 +100,8 @@ const token = localStorage.getItem("token");
         onClick={handleBooking}
         style={{
           padding: "10px 20px",
-          cursor: "pointer"
+          cursor: "pointer",
+          width: "100%",
         }}
       >
         Booking
