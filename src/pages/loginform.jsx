@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import axios from "axios";
 import { connectSocket } from "../socket/socket";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,14 @@ function Login() {
   const [otp, setOtp] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    connectSocket();
+    navigate("/dashboard");
+  }
+}, [navigate]);
 
   const getOtp = async () => {
     try {
@@ -37,9 +45,8 @@ function Login() {
 
       localStorage.setItem("token", res.data.token);
       alert("Login Success");
-      connectSocket();
-
-      navigate("/dashboard");
+      //connectSocket();
+      //navigate("/dashboard");
     } catch (error) {
       alert("Invalid OTP");
     }
