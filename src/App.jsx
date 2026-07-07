@@ -66,6 +66,14 @@ function App() {
             : <Navigate to="/login" replace />
         }
       />
+       <Route
+          path="/user"
+          element={
+        token
+           ? <User />
+           : <Navigate to="/login" replace />
+         }
+       />
     </Routes>
   );
 }
