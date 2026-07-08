@@ -38,12 +38,13 @@ function Login() {
       const res = await axios.post(
         "http://localhost:3000/api/user/verify-otp",
         {
-          phone,
+          phoneNumber: phone,
           otp
         }
       );
 
       localStorage.setItem("token", res.data.token);
+      console.log("Token stored:", res.data.token);
       alert("Login Success");
       //connectSocket();
       //navigate("/dashboard");
