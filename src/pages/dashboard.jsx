@@ -16,36 +16,75 @@ function Dashboard() {
   };
 
   const handleLockerClick = async (lockerId) => {
-    // Re-click => Unselect
     if (selectedLocker.includes(lockerId)) {
-      setSelectedLocker(
-        selectedLocker.filter(id => id !== lockerId)
-      );
+      setSelectedLocker(selectedLocker.filter((id) => id !== lockerId));
       await unblocklocker(lockerId);
     } else {
-      setSelectedLocker([
-        ...selectedLocker,
-        lockerId
-      ]);
+      setSelectedLocker([...selectedLocker, lockerId]);
       await tempblocklocker(lockerId);
     }
   };
 
   return (
-  <div>
-    <div><button onClick = {navigateToProfile}>user</button></div>
-    <div>
-      {lockers.map((locker) => (
-        <Locker
-          key={locker.id}
-          locker={locker}
-          selectedLocker={selectedLocker}
-          onLockerClick={handleLockerClick}
-        />
-      ))}
+    <div
+      style={{
+        padding: "10px",
+        maxWidth: "420px",
+        margin: "0 auto",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        boxSizing: "border-box",
+      }}
+    >
+     <div className="w-full h-10 bg-sky-100 shadow-md flex items-center justify-end px-6 mb-4">
+  <button
+  onClick={navigateToProfile}
+  className="flex items-center gap-1 bg-sky-500 hover:bg-sky-600 text-white text-xs font-medium px-2.5 py-1 rounded-full shadow transition duration-200"
+>
+  👤 User
+</button>
+</div>
+
+      <div
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          paddingBottom: "12px",
+        }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "flex-start",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          {lockers.map((locker) => (
+            <Locker
+              key={locker.lockId}
+              locker={locker}
+              selectedLocker={selectedLocker}
+              onLockerClick={handleLockerClick}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          marginTop: "12px",
+          flexShrink: 0,
+          background: "white",
+          paddingTop: "8px",
+          borderTop: "1px solid #eee",
+        }}
+      >
+        <BookingForm selectedLocker={selectedLocker} />
+      </div>
     </div>
-    <div><BookingForm selectedLocker={selectedLocker} /></div>
-  </div>
   );
 }
 
