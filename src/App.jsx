@@ -1,79 +1,71 @@
-/*import { useEffect } from "react";
+import User from "./pages/user";
 import Dashboard from "./pages/dashboard";
-import { connectSocket } from "./socket/socket";
-import Login from "./pages/loginform";
-import { Routes, Route } from "react-router-dom";
-
-
-function App() {
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      connectSocket();
-    }
-  }, []);
-
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </div>
-  );
-}
-
-export default App;
-*/
-
-
-
-
-import { useEffect } from "react";
-import Dashboard from "./pages/dashboard";
-import { connectSocket } from "./socket/socket";
 import Login from "./pages/loginform";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   const token = localStorage.getItem("token");
 
-  useEffect(() => {
-    if (token) {
-      connectSocket();
-    }
-  }, [token]);
-
   return (
     <Routes>
+      {/* Root Route */}
+      <Route
+        path="/"
+        element={
+          token ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
       {/* Login Route */}
       <Route
         path="/login"
         element={
-          token
-            ? <Navigate to="/" replace />
-            : <Login />
+          token ? (
+            <Navigate to="/dashboard" replace />
+          ) : (
+            <Login />
+          )
         }
       />
 
-      {/* Protected Dashboard Route */}
+      {/* Dashboard Route */}
       <Route
-        path="/"
+        path="/dashboard"
         element={
-          token
-            ? <Dashboard />
-            : <Navigate to="/login" replace />
+          token ? (
+            <Dashboard />
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
-       <Route
-          path="/user"
-          element={
-        token
-           ? <User />
-           : <Navigate to="/login" replace />
-         }
-       />
+
+      {/* User Route */}
+      <Route
+        path="/user"
+        element={
+          token ? (
+            <User />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+
+      {/* Invalid Route */}
+      <Route
+        path="*"
+        element={
+          <Navigate
+            to={token ? "/dashboard" : "/login"}
+            replace
+          />
+        }
+      />
     </Routes>
   );
 }
