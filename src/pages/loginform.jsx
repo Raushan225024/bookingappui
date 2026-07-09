@@ -26,7 +26,9 @@ function Login() {
         }
       );
 
-      alert(`Your OTP is: ${res.data.otp}`);
+      alert(`Your OTP is: ${res.data.data.otp}`);
+      console.log(res.data.message);
+      console.log(`Your OTP is: ${res.data.data.otp}`);
       setOtpSent(true);
     } catch (error) {
       console.log(error);
@@ -43,12 +45,13 @@ function Login() {
         }
       );
 
-      localStorage.setItem("token", res.data.token);
-      console.log("Token stored:", res.data.token);
+      localStorage.setItem("token", res.data.data.token);
+      console.log("Token stored:", res.data.data.token);
       alert("Login Success");
       //connectSocket();
-      //navigate("/dashboard");
+      navigate("/Dashboard");
     } catch (error) {
+      console.error("Login error:", error.response?.data || error.message);
       alert("Invalid OTP");
     }
   };
