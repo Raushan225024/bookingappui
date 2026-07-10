@@ -4,12 +4,25 @@ import BookingForm from "./bookingform";
 import { tempblocklocker, unblocklocker } from "../socket/sockethandler";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { connectSocket } from "../socket/socket";
 
 
 function Dashboard() {
   const [selectedLocker, setSelectedLocker] = useState([]);
   const navigate = useNavigate();
+   useEffect(() => {
+    const token = localStorage.getItem("token");
+  
+    if (token) {
+      connectSocket();
+      //navigate("/dashboard");
+    }
+
+  }, []);
   const lockers = useSelector(state => state.locker.lockers);
+  console.log("Redux lockers in dashboard:", lockers);
+  console.log(lockers.length);
   
   const navigateToProfile = () => {
     navigate("/user");
@@ -18,9 +31,11 @@ function Dashboard() {
   const handleLockerClick = async (lockerId) => {
     if (selectedLocker.includes(lockerId)) {
       setSelectedLocker(selectedLocker.filter((id) => id !== lockerId));
+      console.log("Unblocking locker:", lockerId);
       await unblocklocker(lockerId);
     } else {
       setSelectedLocker([...selectedLocker, lockerId]);
+      console.log("Temporarily blocking locker:", lockerId);
       await tempblocklocker(lockerId);
     }
   };

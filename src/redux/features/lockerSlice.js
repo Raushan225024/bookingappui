@@ -20,6 +20,8 @@ const lockerSlice = createSlice({
       }
     },
     setLockers: (state, action) => {
+      console.log("reducer called");
+      console.log("Payload received in reducer:", action.payload);
       state.lockers = action.payload;
     },
     

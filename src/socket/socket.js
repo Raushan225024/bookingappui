@@ -28,6 +28,7 @@ export const connectSocket = () => {
   socket.on("lockerdata", (data) => {
     console.log("Received locker data:", data);
     store.dispatch(setLockers(data));
+     console.log(store.getState());
   });
 
   socket.on("templockerdata", (data) => {

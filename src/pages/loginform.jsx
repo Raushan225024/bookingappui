@@ -12,7 +12,7 @@ function Login() {
   const token = localStorage.getItem("token");
 
   if (token) {
-    connectSocket();
+    //connectSocket();
     navigate("/dashboard");
   }
 }, [navigate]);

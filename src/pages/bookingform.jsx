@@ -21,7 +21,7 @@ function BookingForm({ selectedLocker }) {
 const token = localStorage.getItem("token");
 
   const response = await axios.post(
-    "http://localhost:3000/create-order",
+    "http://localhost:3000/api/user/create-order",
     {
       lockers: selectedLocker,
       password: password
@@ -51,7 +51,7 @@ const token = localStorage.getItem("token");
     handler: async function (response) {
 
       await axios.post(
-        "http://localhost:3000/verify-payment",
+        "http://localhost:3000/api/user/verify-payment",
         response,
          {
             headers: {
