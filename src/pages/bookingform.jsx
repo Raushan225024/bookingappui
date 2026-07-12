@@ -33,10 +33,10 @@ const token = localStorage.getItem("token");
    }
   );
 
-  const order = response.data;
+  const order = response.data.order;
 
   const options = {
-    key: "YOUR_KEY_ID",
+    key: "rzp_test_TBtHudEBKA572e",
 
     amount: order.amount,
 

@@ -44,7 +44,7 @@ function Dashboard() {
     <div
       style={{
         padding: "10px",
-        maxWidth: "420px",
+        maxWidth: "320px",
         margin: "0 auto",
         height: "100vh",
         display: "flex",
@@ -52,7 +52,7 @@ function Dashboard() {
         boxSizing: "border-box",
       }}
     >
-     <div className="w-full h-10 bg-sky-100 shadow-md flex items-center justify-end px-6 mb-4">
+     <div className="w-full h-10 bg-sky-100 shadow-md flex items-center justify-end px-6 mb-4 rounded-xl">
   <button
   onClick={navigateToProfile}
   className="flex items-center gap-1 bg-sky-500 hover:bg-sky-600 text-white text-xs font-medium px-2.5 py-1 rounded-full shadow transition duration-200"
@@ -73,8 +73,9 @@ function Dashboard() {
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "flex-start",
+            marginLeft: "20px",
             alignItems: "center",
-            gap: "8px",
+            gap: "8%",
           }}
         >
           {lockers.map((locker) => (
