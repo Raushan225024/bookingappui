@@ -57,6 +57,21 @@ function User() {
     setLoading(false);
   }
 };
+  const getPassword = async() => {
+    const token = localStorage.getItem("token");
+    alert("Password will be sent to your registered mobile number via SMS.");
+    await axios.post(
+      "http://localhost:3000/api/user/getPassword",
+      {}, // request body (empty)
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    
+
+  };
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -78,35 +93,34 @@ function User() {
     
     <div className="min-h-screen bg-slate-100 p-4">
       {/* Top Buttons */}
-      <div className="mb-4 flex justify-end gap-3">
-        <button
-          onClick={handleDashboard}
-          className="rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
+      <div className="mb-4 flex items-center justify-end gap-4">
+        <h2 className="text-xl font-bold">UserId:{user}</h2>
+        
+         <button
+         onClick={handleDashboard}
+         className="flex h-9 w-9 items-center justify-center rounded-[25%] bg-blue-100 hover:bg-blue-200"
         >
-           <HomeIcon className="h-5 w-5" />
-        <span>Home</span>
+          <img
+           src={HomeIcon}
+           alt="Home"
+           className="h-3 w-3"
+         />
         </button>
 
         <button
-          onClick={handleLogout}
-          className="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+           onClick={handleLogout}
+           className="flex h-9 w-9 items-center justify-center rounded-[25%] bg-red-100 hover:bg-red-200"
         >
-          Logout
-        </button>
+          <img
+            src={LogoutIcon}
+            alt="Logout"
+            className="h-3 w-3"
+          />
+       </button>
+       
       </div>
 
-      {/* User Card */}
-      <div className="rounded-2xl bg-white p-5 shadow">
-        <div className="mb-4 flex items-center gap-4">
-          
-
-          <div>
-    
-            <h2 className="mt-6 mb-3 text-xl font-bold">UserId:{user}</h2>
-            
-          </div>
-        </div>
-      </div>
+      
 
       {/* Booked Lockers */}
       <h2 className="mt-6 mb-3 text-xl font-bold">
@@ -145,6 +159,17 @@ function User() {
           ))}
         </div>
       )}
+      <div className="mt-6 text-center">
+          <button
+            onClick={getPassword}
+            className="text-sm font-medium text-blue-600 hover:underline"
+          >
+            Password
+          </button>
+          <p className="mt-1 text-sm text-gray-500">
+            get-password by SMS 
+          </p>
+        </div>
     </div>
   );
 }
