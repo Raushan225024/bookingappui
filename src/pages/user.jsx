@@ -3,6 +3,7 @@ import HomeIcon from "../assets/home.svg";
 import LogoutIcon from "../assets/user-logout.svg";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 
 
@@ -10,9 +11,12 @@ function User() {
   const [user, setUser] = useState(null);
   const [lockers, setLockers] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const [isOpen, setIsOpen] = useState(false);
+  const [lockerId, setLockerId] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
+  
+   
   useEffect(() => {
     fetchUserData();
   }, []);
@@ -25,7 +29,7 @@ function User() {
       navigate("/login");
       return;
     }
-
+  
     const response = await axios.post(
       "http://localhost:3000/api/user/user-lockers",
       {}, // request body (empty)
@@ -80,6 +84,38 @@ function User() {
   const handleDashboard = () => {
     navigate("/dashboard");
   };
+  const handleVerifyPassword = async () => {
+  const token = localStorage.getItem("token");
+
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/user/verify-password",
+      {
+        lockerId,
+        password,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    if (response.data.success) {
+      alert("Locker opened successfully!");
+    } else {
+      alert(response.data.message);
+    }
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message || "Something went wrong."
+    );
+  }  
+  };
 
   if (loading) {
     return (
@@ -120,7 +156,53 @@ function User() {
        
       </div>
 
-      
+      <div className="mx-auto mt-6 w-full max-w-[300px] rounded-xl border border-gray-200 bg-white shadow-lg">
+      {/* Header */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex h-[50px] w-full items-center justify-between px-4 font-semibold text-gray-700 hover:bg-gray-50"
+      >
+        <span>Open Your Locker</span>
+
+        {isOpen ? (
+          <ChevronUp size={18} />
+        ) : (
+          <ChevronDown size={18} />
+        )}
+      </button>
+
+      {/* Dropdown Content */}
+      <div
+        className={`overflow-hidden transition-all duration-300 ${
+          isOpen ? "max-h-80 p-4 pt-0" : "max-h-0"
+        }`}
+      >
+        <div className="space-y-3">
+          <input
+            type="number"
+            placeholder="Enter Locker ID"
+            value={lockerId}
+            onChange={(e) => setLockerId(e.target.value)}
+            className="h-10 w-full rounded-lg border border-gray-300 px-3 text-sm outline-none transition focus:border-blue-500"
+          />
+
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="h-10 w-full rounded-lg border border-gray-300 px-3 text-sm outline-none transition focus:border-blue-500"
+          />
+
+          <button
+            onClick={handleVerifyPassword}
+            className="h-10 w-full rounded-lg bg-blue-600 font-medium text-white transition hover:bg-blue-700 active:scale-95"
+          >
+            Open Locker
+          </button>
+        </div>
+      </div>
+    </div>
 
       {/* Booked Lockers */}
       <h2 className="mt-6 mb-3 text-xl font-bold">
