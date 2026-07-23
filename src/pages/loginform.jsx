@@ -20,7 +20,7 @@ function Login() {
   const getOtp = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/user/send-otp",
+        "https://bookingapp-production-11ee.up.railway.app/api/user/send-otp",
         {
           phone
         }
@@ -38,7 +38,7 @@ function Login() {
   const login = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/user/verify-otp",
+        "https://bookingapp-production-11ee.up.railway.app/api/user/verify-otp",
         {
           phoneNumber: phone,
           otp

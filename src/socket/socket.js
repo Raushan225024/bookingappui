@@ -9,7 +9,7 @@ export const connectSocket = () => {
   const token = localStorage.getItem("token");
   console.log("Connecting to socket with token:", token);
 
-  socket = io("http://localhost:3000", {
+  socket = io("https://bookingapp-production-11ee.up.railway.app", {
     auth: {
       token: token,
     }

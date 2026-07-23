@@ -31,7 +31,7 @@ function User() {
     }
   
     const response = await axios.post(
-      "http://localhost:3000/api/user/user-lockers",
+      "https://bookingapp-production-11ee.up.railway.app/api/user/user-lockers",
       {}, // request body (empty)
       {
         headers: {
